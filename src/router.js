@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/base/Home.vue' 
-import Centent from '@/views/Centent.vue'
 import Overview from '@/views/Overview.vue'
 import nodes from '@/views/elasticsearch/nodes.vue'
 import Login from '@/views/login.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -20,6 +19,7 @@ export default new Router({
     },{
       path: '/',
       name: '',
+      redirect: '/overview',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -37,3 +37,21 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) =>{
+  if (to.path === '/login') {
+    next();
+  }
+  else{
+    let token = localStorage.getItem('Authorization');
+    if (token === 'null' || token === ''){
+      next('/login')
+    }else{
+      next();
+    }
+  }
+});
+
+
+
+export default router

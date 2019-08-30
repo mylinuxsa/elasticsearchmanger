@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
   data() {
     return {
@@ -32,17 +32,19 @@ export default {
   },
   methods:{
       ...mapMutations(['changeLogin']),
+
       handleLogin(){
             let _this = this;
             if (this.formLabelAlign.username === '' || this.formLabelAlign.password === ''){
                 alert('账号或密码不能为空');
             }else{
+                
                 this.$post('http://localhost:9000/login',{username: this.formLabelAlign.username, password: this.formLabelAlign.password})
                 .then((response) => {
-                    console.log(response);
                     _this.userToken = response.token;
-                    _this.changeLogin({Authorization: _this.userToken});
-                    //_this.$reouter.push("/home");
+                    console.log(this.$store);
+                    this.changeLogin({Authorization: _this.userToken});
+                    _this.$reouter.push("/home");
                     alert("login success")
                 }
                 )

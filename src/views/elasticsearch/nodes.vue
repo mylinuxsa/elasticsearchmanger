@@ -34,16 +34,15 @@ export default {
     };
   },
   created(){
-      this.tableData = this.getnodes('http://localhost:9000/ClusterInfo');
+      this.tableData = this.getnodes('http://localhost:9000/clusterInfo');
 
   },
 
   methods: {
       getnodes(URL){
-          this.$http.get(URL).then(
+          this.$post(URL).then(
               (res) => {
-                  console.log(res)
-                  this.tableData =  res.data;
+                  this.tableData =  res;
               }
           )
       }

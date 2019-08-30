@@ -1,12 +1,13 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
+
 
 
 const store = new Vuex.Store({
     state:{
-        Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
+        Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
     },
 
     mutations: {
@@ -15,7 +16,6 @@ const store = new Vuex.Store({
             localStorage.setItem('Authorization', user.Authorization);
         }
     }
+})
 
-});
-
-export default store;
+export default store
