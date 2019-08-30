@@ -44,7 +44,7 @@ export default {
                     _this.userToken = response.token;
                     console.log(this.$store);
                     this.changeLogin({Authorization: _this.userToken});
-                    _this.$reouter.push("/home");
+                    this.$router.push("/home");
                     alert("login success")
                 }
                 )
