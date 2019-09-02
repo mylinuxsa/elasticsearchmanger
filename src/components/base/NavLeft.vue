@@ -10,7 +10,8 @@
           <i class="el-icon-location"></i>
           <span slot="title">elasticsearch</span>
         </template>
-        <el-menu-item-group>   
+        <el-menu-item-group>
+          <el-menu-item index="/elasticsearch/cluster">集群信息</el-menu-item>
           <el-menu-item index="/elasticsearch/nodes">节点信息</el-menu-item>
           <el-menu-item index="/elasticsearch/index">索引信息</el-menu-item>
         </el-menu-item-group>

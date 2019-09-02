@@ -2,7 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/base/Home.vue' 
 import Overview from '@/views/Overview.vue'
+import cluster from '@/views/elasticsearch/cluster.vue'
+import index from '@/views/elasticsearch/index.vue'
 import nodes from '@/views/elasticsearch/nodes.vue'
+
 import Login from '@/views/login.vue'
 
 Vue.use(Router)
@@ -26,6 +29,12 @@ const router =  new Router({
       component: Home,
       children: [
         {
+          path: 'elasticsearch/cluster',
+          component: cluster
+        },{
+          path: 'elasticsearch/index',
+          component: index
+        },{
           path: 'elasticsearch/nodes',
           component: nodes
         },
