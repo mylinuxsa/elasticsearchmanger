@@ -39,7 +39,7 @@
   background-color: rgb(48, 65, 86);
 }
 .el-menu-item-group__title {
-  padding: 0px;
+  padding: 0px 0px 0px 0px;
 }
 
 span {

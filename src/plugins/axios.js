@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 export function post(url, data = {}) {
     return new Promise((reslove, reject) => {
         axios.post(url, data).then(
@@ -30,3 +29,18 @@ export function get(url, params = {}) {
 
     )
 }
+
+axios.interceptors.request.use(
+    config => {
+        if (config.method == 'post'){
+            config.data = JSON.stringify(config.data);
+            config.headers['content-type'] = "application/json;charset=utf-8";
+        }
+        return config;
+    }, 
+    error =>{
+        return Promise.reject(error);
+    }
+ )
+
+

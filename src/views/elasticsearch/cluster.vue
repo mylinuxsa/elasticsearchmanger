@@ -9,6 +9,9 @@
         <el-breadcrumb-item>活动列表</el-breadcrumb-item>
         <el-breadcrumb-item>活动详情</el-breadcrumb-item>
       </el-breadcrumb>
+
+
+
       <div class="createMenu">
         <el-button type="primary" @click="dialogFormVisible = true">添加</el-button>
 
@@ -23,13 +26,16 @@
             <el-form-item label="负责人:" :label-width="formLabelWidth" style="margin-right: 40px; ">
               <el-input v-model="form.owner" auto-complete="off"></el-input>
             </el-form-item>
+            <el-form-item label="kibana:" :label-width="formLabelWidth" style="margin-right: 40px; ">
+              <el-input v-model="form.mangerurl" auto-complete="off"></el-input>
+            </el-form-item>
             <el-form-item label="备注:" :label-width="formLabelWidth" style="margin-right: 40px; ">
               <el-input v-model="form.comment" auto-complete="off"></el-input>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="postCluster('form')">确 定</el-button>
+            <el-button type="primary" @click="postCluster(form)">确 定</el-button>
           </div>
         </el-dialog>
       </div>
@@ -40,6 +46,7 @@
         <el-table-column prop="clusterName" label="集群名" width="180"></el-table-column>
         <el-table-column prop="team" label="团队"></el-table-column>
         <el-table-column prop="owner" label="负责人"></el-table-column>
+        <el-table-column prop="mangerurl" label="查询地址"></el-table-column>
         <el-table-column prop="comment" label="备注"></el-table-column>
         <el-table-column prop="update_time" label="状态更新时间"></el-table-column>
       </el-table>
@@ -49,12 +56,15 @@
 
 
 <script>
-
-import axios from  'axios'
-
 export default {
   data() {
     return {
+      formlines: [
+          {}
+      ]
+
+
+
       tableData: [],
       dialogTableVisible: false,
       dialogFormVisible: false,
@@ -62,32 +72,30 @@ export default {
         clusterName: "",
         team: "",
         owner: "",
+        mangerurl:"",
         comment: ""
       },
       formLabelWidth: "100px"
     };
   },
   created() {
-    //this.tableData = this.getnodes("http://localhost:9000/clusterInfo");
+    this.getnodes("http://localhost:9000/clusterInfo");
   },
 
-  
-
-
   methods: {
-     postCluster(form){
-         axios.post("http://localhost:9000/clusterInfo/", form).then(
-             res => {
-                 console.log(res)
-             }
-         ).catch(err =>{
-             console.log(err)
-         })
-     } ,
-
+    postCluster(form) {
+      console.log(form);
+      this.$post("http://localhost:9000/clusterInfo/", form)
+        .then(res => {
+          this.$message.success("提交成功");
+        })
+        .catch(err => {
+          this.$message.success("提交失败");
+        });
+    },
 
     getnodes(URL) {
-      this.$post(URL).then(res => {
+      this.$get(URL).then(res => {
         this.tableData = res;
       });
     }
